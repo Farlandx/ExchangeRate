@@ -124,7 +124,7 @@ function App() {
   return (
     <main className="page">
       <section className="rate-card">
-        <h1>人民幣 CNY / 新台幣 TWD 即期匯率</h1>
+        <h1>新台幣 TWD / 人民幣 CNY 即期匯率</h1>
 
         {loading && <p className="status">資料載入中...</p>}
         {!loading && error && <p className="status error">目前無法取得匯率資料，請稍後再試。</p>}
