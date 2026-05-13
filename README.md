@@ -1,46 +1,73 @@
-# TWD / CNY Spot Rate
+# React + TypeScript + Vite
 
-顯示新台幣（TWD）與人民幣（CNY）即期匯率的靜態網站 Side Project，預計部署在 GitHub Pages，並透過 GitHub Actions 定時更新 `public/rate.json`。
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Demo URL
+Currently, two official plugins are available:
 
-`https://<your-github-username>.github.io/twd-cny-spot-rate/`
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## 技術棧
+## React Compiler
 
-- Vite
-- React
-- TypeScript
-- GitHub Pages
-- GitHub Actions
-- Node.js script（抓取與產生匯率 JSON）
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 資料來源
+## Expanding the ESLint configuration
 
-- 臺灣銀行牌告匯率（人民幣）：  
-  `https://rate.bot.com.tw/xrt/quote/day/CNY`
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## 本地開發
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-```bash
-npm install
-npm run dev
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-## 手動更新匯率
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```bash
-npm run fetch:rate
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-執行後應更新 `public/rate.json`。
-
-## GitHub Pages 部署
-
-1. 在 repository 啟用 GitHub Pages（Source: GitHub Actions）。
-2. 確保 `.github/workflows/deploy.yml` 存在並可在 `main` push 時觸發。
-3. 首次 push 後，等待 workflow 完成部署。
-
-## 免責聲明
-
-本專案僅供個人 Side Project 與匯率資訊展示用途，不構成任何金融、投資、換匯或交易建議。實際匯率與交易條件請以銀行或交易機構公告為準。
