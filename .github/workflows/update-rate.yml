@@ -1,0 +1,39 @@
+name: Update Exchange Rate
+
+on:
+  schedule:
+    - cron: "*/30 1-9 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-rate
+  cancel-in-progress: false
+
+jobs:
+  update-rate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch rate
+        run: npm run fetch:rate
+
+      - name: Commit updated rate
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: 更新匯率資料"
+          file_pattern: public/rate.json
