@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+# TWD / CNY 即期匯率
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+這是一個部署在 GitHub Pages 的靜態網站，用來顯示新台幣（TWD）/ 人民幣（CNY）即期匯率，並透過 GitHub Actions 定時更新資料。
 
-Currently, two official plugins are available:
+## Demo URL
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+`https://<your-github-username>.github.io/twd-cny-spot-rate/`
 
-## React Compiler
+## 技術棧
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Vite
+- React
+- TypeScript
+- GitHub Pages
+- GitHub Actions
+- Node.js + cheerio（抓取與產生匯率 JSON）
 
-## Expanding the ESLint configuration
+## 資料來源
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+臺灣銀行牌告匯率（CNY）：
+`https://rate.bot.com.tw/xrt/quote/day/CNY`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 本地開發
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 手動更新匯率
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run fetch:rate
 ```
+
+執行後會更新 `public/rate.json`。
+
+## GitHub Pages 部署說明
+
+1. 在 GitHub repository 的 **Settings → Pages** 中，Source 選擇 **GitHub Actions**。
+2. 推送 `master` 後會觸發 `.github/workflows/deploy.yml`。
+3. 部署完成後可用 Pages 網址查看頁面。
+
+## 免責聲明
+
+本專案僅供個人 Side Project 與匯率資訊展示用途，不構成任何金融、投資、換匯或交易建議。實際匯率與交易條件請以銀行或交易機構公告為準。
