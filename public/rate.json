@@ -1,0 +1,12 @@
+{
+  "source": "Bank of Taiwan",
+  "sourceUrl": "https://rate.bot.com.tw/xrt/quote/day/CNY",
+  "currency": "CNY",
+  "base": "TWD",
+  "cashBuying": 4.545,
+  "cashSelling": 4.707,
+  "spotBuying": 4.617,
+  "spotSelling": 4.667,
+  "midRate": 4.642,
+  "updatedAt": "2026-05-13T17:49:53+08:00"
+}
