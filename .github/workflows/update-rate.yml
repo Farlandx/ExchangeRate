@@ -2,7 +2,8 @@ name: Update Exchange Rate
 
 on:
   schedule:
-    - cron: "*/30 1-9 * * 1-5"
+    # Run at non-peak minutes to reduce dropped scheduled jobs on GitHub Actions.
+    - cron: "7,37 1-9 * * 1-5"
   workflow_dispatch:
 
 permissions:

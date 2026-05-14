@@ -35,6 +35,10 @@ npm run fetch:rate
 
 執行後會更新 `public/rate.json`。
 
+## 自動更新匯率
+
+GitHub Actions 會在平日 09:07、09:37 到 17:07、17:37（Asia/Taipei，UTC+8）自動執行更新流程（workflow: `.github/workflows/update-rate.yml`）。
+
 ## GitHub Pages 部署說明
 
 1. 在 GitHub repository 的 **Settings → Pages** 中，Source 選擇 **GitHub Actions**。
