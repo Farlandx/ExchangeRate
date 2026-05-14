@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { ExchangeRate } from './types'
 
-type ConvertDirection = 'CNY_TO_TWD' | 'TWD_TO_CNY'
+type ConvertDirection = 'TWD_TO_CNY' | 'CNY_TO_TWD'
 
 interface ExchangeRatePayload {
   source: unknown
@@ -69,7 +69,7 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [inputAmount, setInputAmount] = useState('1000')
-  const [direction, setDirection] = useState<ConvertDirection>('CNY_TO_TWD')
+  const [direction, setDirection] = useState<ConvertDirection>('TWD_TO_CNY')
 
   useEffect(() => {
     const controller = new AbortController()
