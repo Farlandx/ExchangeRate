@@ -37,7 +37,7 @@ function parseLatestRate(html: string): ParsedRate {
   const $ = load(html)
   const rows = $('table tbody tr').toArray()
 
-  for (const row of rows) {
+  for (const row of rows.slice().reverse()) {
     const cells = $(row)
       .find('td')
       .toArray()
@@ -69,27 +69,20 @@ function parseLatestRate(html: string): ParsedRate {
 }
 
 function toTaipeiIso(dateText: string): string {
-  const normalized = dateText.trim()
-  const dateMatch = normalized.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/)
+  const normalized = dateText.replace(/\s+/g, ' ').trim()
+  const dateMatch = normalized.match(
+    /^(\d{4})\/(\d{1,2})\/(\d{1,2})(?: (\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/
+  )
+  if (!dateMatch) {
+    throw new Error(`無法解析更新時間：${dateText}`)
+  }
 
-  const parts = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Taipei',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-  }).formatToParts(new Date())
-
-  const lookup = (type: string): string => parts.find((part) => part.type === type)?.value ?? '00'
-  const year = dateMatch ? dateMatch[1] : lookup('year')
-  const month = dateMatch ? dateMatch[2].padStart(2, '0') : lookup('month')
-  const day = dateMatch ? dateMatch[3].padStart(2, '0') : lookup('day')
-  const hour = lookup('hour')
-  const minute = lookup('minute')
-  const second = lookup('second')
+  const [, year, monthRaw, dayRaw, hourRaw, minuteRaw, secondRaw] = dateMatch
+  const month = monthRaw.padStart(2, '0')
+  const day = dayRaw.padStart(2, '0')
+  const hour = (hourRaw ?? '0').padStart(2, '0')
+  const minute = (minuteRaw ?? '0').padStart(2, '0')
+  const second = (secondRaw ?? '0').padStart(2, '0')
 
   return `${year}-${month}-${day}T${hour}:${minute}:${second}+08:00`
 }
