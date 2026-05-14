@@ -161,8 +161,8 @@ function App() {
                   onChange={(event) => setDirection(event.target.value as ConvertDirection)}
                   aria-label="換算方向"
                 >
-                  <option value="CNY_TO_TWD">CNY → TWD</option>
                   <option value="TWD_TO_CNY">TWD → CNY</option>
+                  <option value="CNY_TO_TWD">CNY → TWD</option>
                 </select>
               </div>
 
