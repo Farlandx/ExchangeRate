@@ -23,14 +23,14 @@
 ## 本地開發
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 ## 手動更新匯率
 
 ```bash
-npm run fetch:rate
+pnpm run fetch:rate
 ```
 
 執行後會更新 `public/rate.json`。
