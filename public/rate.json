@@ -3,10 +3,10 @@
   "sourceUrl": "https://rate.bot.com.tw/xrt/quote/day/CNY",
   "currency": "CNY",
   "base": "TWD",
-  "cashBuying": 4.642,
-  "cashSelling": 4.804,
-  "spotBuying": 4.714,
-  "spotSelling": 4.764,
-  "midRate": 4.739,
-  "updatedAt": "2026-08-26T13:41:01+08:00"
+  "cashBuying": 4.64,
+  "cashSelling": 4.802,
+  "spotBuying": 4.712,
+  "spotSelling": 4.762,
+  "midRate": 4.737,
+  "updatedAt": "2026-08-26T15:03:24+08:00"
 }
